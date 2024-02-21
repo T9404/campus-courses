@@ -6,7 +6,7 @@ function Footer() {
             <MDBFooter className='text-center text-white' style={{ backgroundColor: '#caced1' }}>
                 <footer className={`${styles.footer}`}>
                     <div className="container">
-                        <span className="text-muted">&copy; 2023 - Блог №415{' '}</span>
+                        <span className="text-muted">&copy; 2024 - Кампусные курсы{' '}</span>
                     </div>
                 </footer>
             </MDBFooter>

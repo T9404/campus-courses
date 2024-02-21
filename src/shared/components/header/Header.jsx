@@ -11,13 +11,13 @@ function Header() {
     return (
         <Navbar expand="lg" className="bg-body-tertiary shadow p-3 mb-5 bg-body rounded">
             <Container>
-                <Navbar.Brand>Блог №415</Navbar.Brand>
+                <Navbar.Brand>Кампусные курсы</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="/">Главная</Nav.Link>
                         {authenticated ? (
                             <>
+                                <Nav.Link href="/">Главная</Nav.Link>
                                 <Nav.Link href="/post/create">Написать пост</Nav.Link>
                                 <Nav.Link href="/communities">Группы</Nav.Link>
                                 <Nav.Link href="/authors">Авторы</Nav.Link>
@@ -33,6 +33,7 @@ function Header() {
                             </>
                         ) : (
                             <>
+                                <Nav.Link href="/registration">Регистрация</Nav.Link>
                                 <Nav.Link href="/login">Вход</Nav.Link>
                             </>
                         )}
