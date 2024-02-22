@@ -5,6 +5,7 @@ import successNotify from "../../util/notification/success/SuccessNotify";
 import notifyWarning from "../../util/notification/warning/WarningNotify";
 import register from "../../shared/api/register/Registration";
 import styles from './style.module.css';
+import getUserRole from "../../shared/api/role/GetUserRole";
 
 const RegistrationPage = () => {
     const [form, setForm] = useState({
@@ -26,6 +27,7 @@ const RegistrationPage = () => {
     
     useEffect(() => {
         console.log(`${process.env.REACT_APP_API}`);
+        console.log(localStorage.getItem('roles'))
     }, []);
     
     
@@ -44,6 +46,7 @@ const RegistrationPage = () => {
                 localStorage.setItem('token', result.token);
                 localStorage.setItem('email', form.email);
                 await navigate('/');
+                await getUserRole();
                 successNotify('Вы успешно вошли!')
             } else {
                 notifyError(result.message)

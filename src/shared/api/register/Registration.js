@@ -4,8 +4,6 @@ import parseAllErrors from "../../../util/notification/error/ParseAllErrors";
 
 const register = async (form) => {
     try {
-        // print form
-        console.log(form);
         
         const response = await axios.post(`${process.env.REACT_APP_API}/registration`, {
             fullName: form.fullName,
@@ -14,8 +12,6 @@ const register = async (form) => {
             confirmPassword: form.confirmPassword,
             birthDate: form.birthDate,
         });
-        
-        console.log(response)
         
         if (response.status === 200) {
             return response.data;
