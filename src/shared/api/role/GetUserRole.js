@@ -9,9 +9,9 @@ const getUserRole = async () => {
             },
         });
         if (response.status === 200) {
-            console.log('-------------------------------------------------------------------')
-            console.log(response.data.isTeacher)
-            localStorage.setItem('roles', response.data);
+            localStorage.setItem('admin', response.data.isAdmin);
+            localStorage.setItem('student', response.data.isStudent);
+            localStorage.setItem('teacher', response.data.isTeacher);
             return response.data;
         }
     } catch (error) {

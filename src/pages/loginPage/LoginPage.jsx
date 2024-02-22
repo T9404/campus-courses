@@ -22,8 +22,6 @@ const LoginPage = () => {
                 await getUserRole();
                 successNotify('Вы успешно вошли!')
                 await navigate('/');
-                /// TODO: localStorage.getItem('roles') === 'admin' ? navigate('/admin') : navigate('/');
-                console.log(localStorage.getItem('roles'))
             } else {
                 notifyError(result.message)
             }

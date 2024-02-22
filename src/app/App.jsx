@@ -11,6 +11,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProfilePage from "../pages/profilePage/ProfilePage";
 import NotFoundPage from "../pages/notFoundPage/NotFoundPage";
+import GroupCoursePage from "../pages/groupCoursePage/GroupCoursePage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
                   <Route path="/" element={<HomePage/>}/>
                   <Route element={<PrivateRoute/>}>
                       <Route path="/profile" element={<ProfilePage/>}/>
+                      <Route path="/groups" element={<GroupCoursePage/>}/>
                   </Route>
                   <Route path="/registration" element={<RegistrationPage/>}/>
                   <Route path="/login" element={<LoginPage/>}/>

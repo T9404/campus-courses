@@ -17,13 +17,13 @@ function Header() {
                     <Nav className="me-auto">
                         {authenticated ? (
                             <>
-                                <Nav.Link href="/post/create">Группы курсов</Nav.Link>
-                                {localStorage.getItem('roles').isTeacher === true ? (
+                                <Nav.Link href="/groups">Группы курсов</Nav.Link>
+                                {localStorage.getItem('teacher') === "tr ? (
                                     <Nav.Link href="/teacher">Преподаваемые курсы</Nav.Link>
                                 ) : (
                                     <></>
                                 )}
-                                {localStorage.getItem('roles').isStudent === true ? (
+                                {localStorage.getItem('student') === "true" ? (
                                     <Nav.Link href="/student">Мои курсы</Nav.Link>
                                 ) : (
                                     <></>
