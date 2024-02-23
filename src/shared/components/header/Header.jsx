@@ -18,7 +18,7 @@ function Header() {
                         {authenticated ? (
                             <>
                                 <Nav.Link href="/groups">Группы курсов</Nav.Link>
-                                {localStorage.getItem('teacher') === "tr ? (
+                                {localStorage.getItem('teacher') === "true" ? (
                                     <Nav.Link href="/teacher">Преподаваемые курсы</Nav.Link>
                                 ) : (
                                     <></>

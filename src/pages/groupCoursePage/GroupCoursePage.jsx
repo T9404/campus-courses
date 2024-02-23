@@ -2,12 +2,16 @@ import {useEffect, useState} from "react";
 import notifyError from "../../util/notification/error/ErrorNotify";
 import getGroupCourses from "../../shared/api/groupCourse/GetGroupCourses";
 import {Button, ListGroup} from "react-bootstrap";
-import getUserRole from "../../shared/api/role/GetUserRole";
+import CourseListItem from "../../shared/components/courseListItem/CourseListItem";
+import GroupCourseModal from "../../shared/components/modalWindow/groupCourseModal";
+import saveGroup from "../../shared/api/groupCourse/SaveGroup";
+import notifySuccess from "../../util/notification/success/SuccessNotify";
 
 const GroupCoursePage = () => {
     const [loading, setLoading] = useState(true);
-    const [groupCourses, setGroupCourses] = useState
-    
+    const [groupCourses, setGroupCourses] = useState([]);
+    const [showCreateModal, setShowCreateModal] = useState(false);
+    const [editedName, setEditedName] = useState('');
     
     useEffect(() => {
         const fetchGroupCrourses = async () => {
@@ -16,7 +20,7 @@ const GroupCoursePage = () => {
                 console.log(result);
                 setGroupCourses(result);
             } catch (error) {
-                notifyError('Ошибка при загрузке групп курсов')
+                notifyError('Ошибка при загрузке групп курсов, авторизуйтесь заново')
             } finally {
                 setLoading(false);
             }
@@ -26,23 +30,46 @@ const GroupCoursePage = () => {
         
     }, []);
     
+    const updateGroupCourse = (groupCourse) => {
+        setGroupCourses(groupCourses.map(item => item.id === groupCourse.id ? groupCourse : item));
+    }
+    
+    const deleteGroupCourse = (groupCourse) => {
+        setGroupCourses(groupCourses.filter(item => item.id !== groupCourse.id));
+    }
+    
+    const handleClose = () => {
+        setShowCreateModal(false);
+    }
+    
+    const handleSave = async () => {
+        setShowCreateModal(false);
+        console.log(groupCourses)
+        try {
+            const response = saveGroup(editedName);
+            setEditedName('');
+            response.then(data => setGroupCourses(prevCourses => [...prevCourses, { id: data.id, name: data.name }]));
+            notifySuccess('Группа успешно создана');
+        } catch (error) {
+            notifyError('Ошибка при создании группы')
+        }
+    }
+    
     return (
         <>
             <h1 className="pb-3">Группы курсов</h1>
             {localStorage.getItem('admin') === "true" ? (
                 <>
                 <div className="pb-3">
-                    <button className="btn btn-primary ">Создать</button>
+                    <button className="btn btn-primary" onClick={e =>
+                        setShowCreateModal(true)}>Создать группу</button>
                 </div>
+                    <GroupCourseModal handleSave={handleSave} handleClose={handleClose} show={showCreateModal}
+                                      editedName={editedName} setEditedName={setEditedName} modalName="Создание группы" />
                 <ListGroup>
                     {groupCourses.map((groupCourse) => (
-                        <ListGroup.Item variant="light">
-                            <a href="#" className="link-secondary">{groupCourse.name}</a>
-                            <div style={{float: "right"}}>
-                                <Button variant="btn btn-warning" className="ms-2">Редактировать</Button>
-                                <Button variant="btn btn-danger" className="ms-2">Удалить</Button>
-                            </div>
-                        </ListGroup.Item>
+                        <CourseListItem courseItem={groupCourse} updateGroupCourse={updateGroupCourse}
+                                        deleteGroupCourse={deleteGroupCourse}/>
                     ))}
                 </ListGroup>
                 </>
