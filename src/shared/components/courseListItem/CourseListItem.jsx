@@ -1,15 +1,18 @@
-import {Button, Form, ListGroup, Modal} from "react-bootstrap";
+import {Button, ListGroup} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import editGroup from "../../api/groupCourse/EditGroup";
 import successNotify from "../../../util/notification/success/SuccessNotify";
 import notifyError from "../../../util/notification/error/ErrorNotify";
 import deleteGroup from "../../api/groupCourse/DeleteGroup";
-import GroupCourseModal from "../modalWindow/groupCourseModal";
+import GroupCourseModal from "../modalWindow/GroupCourseModal";
+import {useNavigate} from "react-router-dom";
+import DeleteModal from "../modalWindow/DeleteModal";
 
 const CourseListItem = ({ courseItem, updateGroupCourse, deleteGroupCourse }) => {
     const [showEditModal, setShowEditModal] = useState(false);
     const [editedName, setEditedName] = useState(courseItem.name);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const navigate = useNavigate();
     
     const handleEdit = () => {
         setShowEditModal(true);
@@ -29,12 +32,16 @@ const CourseListItem = ({ courseItem, updateGroupCourse, deleteGroupCourse }) =>
         setShowEditModal(false);
         
         try {
-            const response = await editGroup(courseItem.id, editedName);
+            await editGroup(courseItem.id, editedName);
             successNotify('Группа успешно отредактирована');
             updateGroupCourse({ ...courseItem, name: editedName });
         } catch (error) {
             notifyError('Ошибка при редактировании группы')
         }
+    }
+    
+    const handleClick = () => {
+        navigate(`/groups/${courseItem.id}`)
     }
     
     const confirmDelete = async () => {
@@ -54,23 +61,14 @@ const CourseListItem = ({ courseItem, updateGroupCourse, deleteGroupCourse }) =>
     return (
         <>
             <ListGroup.Item variant="light">
-                <a href="#" className="link-secondary">{courseItem.name}</a>
-                <div style={{ float: "right" }}>
+                <a href="" className="link-secondary" onClick={e => handleClick(courseItem.id)}>{courseItem.name}</a>
+                <div style={{float: "right"}}>
                     <Button variant="btn btn-warning" className="ms-2" onClick={handleEdit}>Edit</Button>
                     <Button variant="btn btn-danger" className="ms-2" onClick={handleDelete}>Delete</Button>
                 </div>
             </ListGroup.Item>
             <GroupCourseModal handleSave={handleSave} handleClose={handleClose} show={showEditModal} editedName={editedName} setEditedName={setEditedName} modalName="Редактирование группы" />
-            <Modal show={showDeleteModal} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Подтверждение удаления</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Вы уверены, что хотите удалить группу?</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>Cancel</Button>
-                    <Button variant="danger" onClick={confirmDelete}>Delete</Button>
-                </Modal.Footer>
-            </Modal>
+            <DeleteModal showDeleteModal={showDeleteModal} confirmDelete={confirmDelete} handleClose={handleClose} />
         </>
     );
 }

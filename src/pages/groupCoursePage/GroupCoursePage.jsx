@@ -3,15 +3,18 @@ import notifyError from "../../util/notification/error/ErrorNotify";
 import getGroupCourses from "../../shared/api/groupCourse/GetGroupCourses";
 import {Button, ListGroup} from "react-bootstrap";
 import CourseListItem from "../../shared/components/courseListItem/CourseListItem";
-import GroupCourseModal from "../../shared/components/modalWindow/groupCourseModal";
+import GroupCourseModal from "../../shared/components/modalWindow/GroupCourseModal";
 import saveGroup from "../../shared/api/groupCourse/SaveGroup";
 import notifySuccess from "../../util/notification/success/SuccessNotify";
+import {useNavigate} from "react-router-dom";
 
 const GroupCoursePage = () => {
     const [loading, setLoading] = useState(true);
     const [groupCourses, setGroupCourses] = useState([]);
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [editedName, setEditedName] = useState('');
+    
+    const navigate = useNavigate()
     
     useEffect(() => {
         const fetchGroupCrourses = async () => {
@@ -52,7 +55,13 @@ const GroupCoursePage = () => {
             notifySuccess('Группа успешно создана');
         } catch (error) {
             notifyError('Ошибка при создании группы')
+            localStorage.clear();
+            navigate('/login');
         }
+    }
+    
+    const handleClick = (id) => {
+        navigate(`/groups/${id}`)
     }
     
     return (
@@ -69,14 +78,16 @@ const GroupCoursePage = () => {
                 <ListGroup>
                     {groupCourses.map((groupCourse) => (
                         <CourseListItem courseItem={groupCourse} updateGroupCourse={updateGroupCourse}
-                                        deleteGroupCourse={deleteGroupCourse}/>
+                                        deleteGroupCourse={deleteGroupCourse} />
                     ))}
                 </ListGroup>
                 </>
             ) : (
                 <ListGroup>
-                    {groupCourses.map((groupCourse, index) => (
-                        <ListGroup.Item action variant="light">{groupCourse.name}</ListGroup.Item>
+                    {groupCourses.map((groupCourse) => (
+                        <ListGroup.Item action variant="light">
+                            <a href="" className="link-secondary" onClick={e => handleClick(groupCourse.id)}>{groupCourse.name}</a>
+                        </ListGroup.Item>
                     ))}
                 </ListGroup>
             )}
