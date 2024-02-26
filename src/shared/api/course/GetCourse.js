@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const getGroupCourses = async () => {
+const GetCourse = async (groupId) => {
     try {
-        const response = await axios.get(`${process.env.REACT_APP_API}/groups`, {
+        const response = await axios.get(`${process.env.REACT_APP_API}/groups/${groupId}`, {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token'),
             }
@@ -13,10 +13,9 @@ const getGroupCourses = async () => {
         } else if (response.status === 401) {
             return Promise.reject(Error('Вы не авторизованы'));
         }
-    }
-    catch (error) {
+    } catch (error) {
         throw error;
     }
 }
 
-export default getGroupCourses;
+export default GetCourse;

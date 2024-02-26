@@ -1,9 +1,9 @@
 import {Button, ListGroup} from "react-bootstrap";
 import {useEffect, useState} from "react";
-import editGroup from "../../api/groupCourse/EditGroup";
+import editGroup from "../../api/group/EditGroup";
 import successNotify from "../../../util/notification/success/SuccessNotify";
 import notifyError from "../../../util/notification/error/ErrorNotify";
-import deleteGroup from "../../api/groupCourse/DeleteGroup";
+import deleteGroup from "../../api/group/DeleteGroup";
 import GroupCourseModal from "../modalWindow/GroupCourseModal";
 import {useNavigate} from "react-router-dom";
 import DeleteModal from "../modalWindow/DeleteModal";

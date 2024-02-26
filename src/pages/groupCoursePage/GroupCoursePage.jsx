@@ -1,10 +1,10 @@
 import {useEffect, useState} from "react";
 import notifyError from "../../util/notification/error/ErrorNotify";
-import getGroupCourses from "../../shared/api/groupCourse/GetGroupCourses";
+import getGroup from "../../shared/api/group/GetGroup";
 import {Button, ListGroup} from "react-bootstrap";
 import CourseListItem from "../../shared/components/courseListItem/CourseListItem";
 import GroupCourseModal from "../../shared/components/modalWindow/GroupCourseModal";
-import saveGroup from "../../shared/api/groupCourse/SaveGroup";
+import saveGroup from "../../shared/api/group/SaveGroup";
 import notifySuccess from "../../util/notification/success/SuccessNotify";
 import {useNavigate} from "react-router-dom";
 
@@ -19,11 +19,13 @@ const GroupCoursePage = () => {
     useEffect(() => {
         const fetchGroupCrourses = async () => {
             try {
-                const result = await getGroupCourses();
+                const result = await getGroup();
                 console.log(result);
                 setGroupCourses(result);
             } catch (error) {
                 notifyError('Ошибка при загрузке групп курсов, авторизуйтесь заново')
+                localStorage.clear();
+                navigate('/login');
             } finally {
                 setLoading(false);
             }

@@ -5,9 +5,8 @@ import {useNavigate} from "react-router-dom";
 import getUsers from "../../api/user/GetUsers";
 import notifyError from "../../../util/notification/error/ErrorNotify";
 
-const TeacherSelect = () => {
+const TeacherSelect = ({changeMainTeacher}) => {
     const [users, setUsers] = useState([]);
-    const [selectedUser, setSelectedUser] = useState(null);
     const navigate = useNavigate();
     
     useEffect(() => {
@@ -27,19 +26,10 @@ const TeacherSelect = () => {
     }, [navigate]);
     
     useEffect(() => {
-        console.log(users);
     }, [users]);
     
     const handleUserChange = (selectedOption) => {
-        setSelectedUser(selectedOption);
-    };
-    
-    const handleButtonClick = () => {
-        if (selectedUser) {
-            console.log('Selected user:', selectedUser);
-        } else {
-            console.log('Please select a user');
-        }
+        changeMainTeacher(selectedOption.value);
     };
     
     const options = users.map(user => ({
@@ -50,7 +40,7 @@ const TeacherSelect = () => {
     
     return (
         <Select
-            closeMenuOnSelect={false}
+            closeMenuOnSelect={true}
             components={makeAnimated()}
             options={options}
             onChange={handleUserChange}
