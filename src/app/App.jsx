@@ -12,7 +12,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import ProfilePage from "../pages/profilePage/ProfilePage";
 import NotFoundPage from "../pages/notFoundPage/NotFoundPage";
 import GroupCoursePage from "../pages/groupCoursePage/GroupCoursePage";
-import CourseListGroup from "../pages/courseListGroup/CourseListGroup";
+import CourseListGroupPage from "../pages/courseListGroup/CourseListGroupPage";
+import TeacherCourseGroupPage from "../pages/teacherCourseGroup/TeacherCourseGroupPage";
+import MyCourseGroupPage from "../pages/studentCourseGroup/MyCourseGroupPage";
+import DetailedCoursePage from "../pages/detailedCourse/DetailedCoursePage";
 
 function App() {
   return (
@@ -25,7 +28,10 @@ function App() {
                   <Route element={<PrivateRoute/>}>
                       <Route path="/profile" element={<ProfilePage/>}/>
                       <Route path="/groups" element={<GroupCoursePage/>}/>
-                      <Route path="/groups/:id" element={<CourseListGroup/>}/>
+                      <Route path="/groups/:id" element={<CourseListGroupPage/>}/>
+                      <Route path="/courses/teaching" element={<TeacherCourseGroupPage/>}/>
+                      <Route path="/courses/my" element={<MyCourseGroupPage/>}/>
+                      <Route path="/courses/:id" element={<DetailedCoursePage/>}/>
                   </Route>
                   <Route path="/registration" element={<RegistrationPage/>}/>
                   <Route path="/login" element={<LoginPage/>}/>

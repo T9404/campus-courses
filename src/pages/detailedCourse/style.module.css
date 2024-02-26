@@ -1,0 +1,11 @@
+.normalNotification {
+    border-bottom: 1px solid #D3D3D3;
+    border-color: #D3D3D3;
+}
+
+.importantNotification {
+    background-color: #FFB6C1;
+    border-bottom: 1px solid #D3D3D3;
+    border-color: #D3D3D3;
+}
+

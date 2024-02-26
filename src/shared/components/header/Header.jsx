@@ -19,12 +19,12 @@ function Header() {
                             <>
                                 <Nav.Link href="/groups">Группы курсов</Nav.Link>
                                 {localStorage.getItem('teacher') === "true" ? (
-                                    <Nav.Link href="/teacher">Преподаваемые курсы</Nav.Link>
+                                    <Nav.Link href="/courses/teaching">Преподаваемые курсы</Nav.Link>
                                 ) : (
                                     <></>
                                 )}
                                 {localStorage.getItem('student') === "true" ? (
-                                    <Nav.Link href="/student">Мои курсы</Nav.Link>
+                                    <Nav.Link href="/courses/my">Мои курсы</Nav.Link>
                                 ) : (
                                     <></>
                                 )}

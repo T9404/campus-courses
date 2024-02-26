@@ -6,8 +6,9 @@ import notifyError from "../../util/notification/error/ErrorNotify";
 import getSubject from "../../shared/api/course/GetCourse";
 import ConvertStatus from "../../util/converter/ConvertStatus";
 import Loading from "../../shared/components/loading/Loading";
+import CourseCard from "../../shared/components/courseCard/CourseCard";
 
-const CourseListGroup = () => {
+const CourseListGroupPage = () => {
     const {id} = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [subjectList, setSubjectList] = useState([]);
@@ -47,46 +48,24 @@ const CourseListGroup = () => {
             <>
                 {isLoading ? (
                     <Loading/>
-                ) : (subjectList && subjectList.length != 0 ? (
+                ) : (subjectList && subjectList.length !== 0 ? (
                     <>
                         <h1 className="pb-3">Группа - {groupName}</h1>
-                        {localStorage.getItem("admin") == "true" ? (<CreateCourse addCourses={addCourses} id={id}/>) : ""}
-                        <div className="row">
-                            {subjectList.map((item) => (
-                                <div className="card  mb-3">
-                                    <h5 className="card-header">{item.name}</h5>
-                                    <div className="card-body">
-                                        <div className="row">
-                                            <div className="col">
-                                                <p className="card-text">Учебный год
-                                                    : {item.startYear}-{item.startYear + 1}</p>
-                                                <p className="card-text">Семестр: {item.semester}</p>
-                                                <p className="card-text font-weight-normal opacity-50">Мест
-                                                    всего: {item.maximumStudentsCount}</p>
-                                                <p className="card-text font-weight-normal opacity-50">Осталось
-                                                    мест: {item.remainingSlotsCount}</p>
-                                            </div>
-                                            <div className="col-auto ml-auto">
-                                                <p className="card-text">{ConvertStatus(item.status)}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+                        {localStorage.getItem("admin") === "true" ? (<CreateCourse addCourses={addCourses} id={id}/>) : ""}
+                        <CourseCard subjectList={subjectList}/>
                     </>
                 ) : (
                     <>
                         <h1 className="pb-3">Группа - {groupName}</h1>
-                        {localStorage.getItem("admin") == "true" ? (<CreateCourse addCourses={addCourses} id={id}/>) : ""}
+                        {localStorage.getItem("admin") === "true" ? (<CreateCourse addCourses={addCourses} id={id}/>) : ""}
                         <p>Простите, у нас пока нет ни одного курса.</p>
                         <p>Но не переживайте, мы работаем над этим!</p>
                         <p>Загляните позже или посмотрите, что у нас есть сейчас.</p>
                     </>
                 ))}
             </>
-        </>
+      </>
     );
 }
 
-export default CourseListGroup;
+export default CourseListGroupPage;
