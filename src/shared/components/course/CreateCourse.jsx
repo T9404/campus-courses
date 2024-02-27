@@ -2,13 +2,10 @@ import {useEffect, useState} from "react";
 import {Modal} from "react-bootstrap";
 import TeacherSelect from "../teacherSelect/TeacherSelect";
 import notifyError from "../../../util/notification/error/ErrorNotify";
-import {useNavigate} from "react-router-dom";
-import createCourse from "../../api/course/CreateCourse";
 import CreateCourseApi from "../../api/course/CreateCourse";
 
 const CreateCourse = ({addCourses, id}) => {
     const [show, setShow] = useState(false);
-    const navigate = useNavigate();
     const [form, setForm] = useState({
         name: '',
         startYear: '',

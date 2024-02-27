@@ -25,9 +25,6 @@ const TeacherSelect = ({changeMainTeacher}) => {
         
     }, [navigate]);
     
-    useEffect(() => {
-    }, [users]);
-    
     const handleUserChange = (selectedOption) => {
         changeMainTeacher(selectedOption.value);
     };
