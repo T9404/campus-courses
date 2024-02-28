@@ -14,7 +14,7 @@ const ConvertStatus = (status) => {
         case 'Finished':
             return <span style={{ color: getRandomColor() }}>Завершен</span>;
         case 'Started':
-            return <span style={{ color: getRandomColor() }}>Начат</span>;
+            return <span style={{ color: getRandomColor() }}>В процессе обучения</span>;
         case 'OpenForAssigning':
             return <span style={{ color: getRandomColor() }}>Открыт для записи</span>;
         default:
