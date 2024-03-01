@@ -1,4 +1,6 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import {Modal} from "react-bootstrap";
 import TeacherSelect from "../teacherSelect/TeacherSelect";
 import notifyError from "../../../util/notification/error/ErrorNotify";
@@ -100,11 +102,21 @@ const CreateCourse = ({addCourses, id}) => {
                         </div>
                         <div className="mb-3">
                             <label htmlFor="exampleFormControlInput1" className="form-label">Требования</label>
-                            <textarea className="form-control" id="exampleFormControlInput1" onChange={e => setForm({...form, requirements: e.target.value})}/>
+                            <ReactQuill
+                                id="requirements"
+                                value={form.requirements}
+                                onChange={value => setForm({...form, requirements: value})}
+                                modules={{ toolbar: true }}
+                            />
                         </div>
                         <div className="mb-3">
                             <label htmlFor="exampleFormControlInput1" className="form-label">Аннотации</label>
-                            <textarea className="form-control" id="exampleFormControlInput1" onChange={e => setForm({...form, annotations: e.target.value})}/>
+                            <ReactQuill
+                                id="annotations"
+                                value={form.annotations}
+                                onChange={value => setForm({...form, annotations: value})}
+                                modules={{ toolbar: true }}
+                            />
                         </div>
                         
                         <div className="mb-3">

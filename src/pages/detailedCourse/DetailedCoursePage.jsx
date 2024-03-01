@@ -18,6 +18,8 @@ import AddMeToCourse from "../../shared/api/course/AddMeToCourse";
 import TakeStudentToCourse from "../../shared/api/course/TakeStudentToCourse";
 import AddNotification from "../../shared/api/notification/AddNotification";
 import EditMark from "../../shared/api/mark/EditMark";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const DetailedCoursePage = () => {
     const {id} = useParams();
@@ -259,16 +261,29 @@ const DetailedCoursePage = () => {
                                         </form>
                                     </div>
                                     <div className="mb-3">
-                                        <label htmlFor="exampleFormControlInput1" className="form-label">Требования</label>
-                                        <textarea className="form-control" id="exampleFormControlInput1" onChange={e => setForm({...form, requirements: e.target.value})}/>
+                                        <label htmlFor="exampleFormControlInput1"
+                                               className="form-label">Требования</label>
+                                        <ReactQuill
+                                            id="requirements"
+                                            value={form.requirements}
+                                            onChange={value => setForm({...form, requirements: value})}
+                                            modules={{toolbar: true}}
+                                        />
                                     </div>
                                     <div className="mb-3">
-                                        <label htmlFor="exampleFormControlInput1" className="form-label">Аннотации</label>
-                                        <textarea className="form-control" id="exampleFormControlInput1" onChange={e => setForm({...form, annotations: e.target.value})}/>
+                                        <label htmlFor="exampleFormControlInput1"
+                                               className="form-label">Аннотации</label>
+                                        <ReactQuill
+                                            id="annotations"
+                                            value={form.annotations}
+                                            onChange={value => setForm({...form, annotations: value})}
+                                            modules={{toolbar: true}}
+                                        />
                                     </div>
                                     
                                     <div className="mb-3">
-                                        <label htmlFor="exampleFormControlInput1" className="form-label">Основной преподаватель курса</label>
+                                        <label htmlFor="exampleFormControlInput1" className="form-label">Основной
+                                            преподаватель курса</label>
                                     </div>
                                     <TeacherSelect changeMainTeacher={changeMainTeacher}/>
                                 </form>
@@ -425,10 +440,10 @@ const DetailedCoursePage = () => {
                     
                     <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="nav nav-pills nav-fill mt-4">
                         <Tab eventKey="home" title="Требования к курсу">
-                            <p>{courseInfo.requirements}</p>
+                            <div dangerouslySetInnerHTML={{__html: courseInfo.requirements}}/>
                         </Tab>
                         <Tab eventKey="profile" title="Аннотация">
-                            <p>{courseInfo.annotations}</p>
+                        <div dangerouslySetInnerHTML={{__html: courseInfo.annotations}}/>
                         </Tab>
                         <Tab eventKey="contact" title={`Уведомления (${courseInfo.notifications && courseInfo.notifications.length ? courseInfo.notifications.length : 0})`}>
                             {localStorage.getItem('admin') === 'true' || checkIfTeacher(localStorage.getItem('email')) ? (
